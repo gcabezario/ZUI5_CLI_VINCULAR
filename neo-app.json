@@ -1,0 +1,50 @@
+{
+  "welcomeFile": "index.html",
+  "routes": [
+    {
+      "path": "/sap/opu/odata",
+      "target": {
+        "type": "destination",
+        "name": "TST_SAPGCR",
+        "entryPath": "/sap/opu/odata"
+      },
+      "description": "TST_SAPGCR"
+    },
+    {
+      "path": "/sap/bc/ui5_ui5",
+      "target": {
+        "type": "destination",
+        "name": "TST_SAPGCR",
+        "entryPath": "/sap/bc/ui5_ui5"
+      },
+      "description": "TST_SAPGCR"
+    },
+    {
+      "path": "/sap/bc/weblogin",
+      "target": {
+        "type": "destination",
+        "name": "TST_SAPGCR",
+        "entryPath": "/sap/bc/weblogin"
+      },
+      "description": "TST_SAPGCR"
+    },
+    {
+      "path": "/resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/resources"
+      },
+      "description": "SAPUI5 Resources"
+    },
+    {
+      "path": "/test-resources",
+      "target": {
+        "type": "service",
+        "name": "sapui5",
+        "entryPath": "/test-resources"
+      },
+      "description": "SAPUI5 Test Resources"
+    }
+  ]
+}

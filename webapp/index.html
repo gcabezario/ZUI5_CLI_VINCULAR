@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8">
+		<meta name="format-detection" content="telephone=no"/>
+
+		<title>Vincular</title>
+
+		<script>
+			// Set sap params if not exist in iframe and refresh
+			let url = window.location.href;
+			let urlParent = window.parent.location.href;
+			let urlParentParams = new URLSearchParams(window.parent.location.search);
+			let urlParams = new URLSearchParams(window.location.search);
+			if (!urlParams.has('sap-language')) {
+				if (urlParentParams.has('sap-language')) {
+					let urlSemanticObj = urlParent.split('#');
+					let urlQueryParams = urlSemanticObj[1].split('?');
+					let existQueryParams = urlQueryParams.length > 1;
+					let sUrl = urlParent;
+					if (existQueryParams) {
+						sUrl += '&sap-language=' + urlParentParams.get('sap-language');
+					} else {
+						sUrl += '?sap-language=' + urlParentParams.get('sap-language');
+					}
+					if (!urlParams.has('sap-client') && urlParentParams.has('sap-client')) {
+						sUrl += '&sap-client=' + urlParentParams.get('sap-client');
+					}
+					window.parent.location.href = sUrl;
+				}
+			}
+		</script>
+
+		<script id="sap-ui-bootstrap"
+			src="./resources/sap-ui-cachebuster/sap-ui-core.js"
+			data-sap-ui-libs="sap.m,sap.ushell,sap.ui.layout"
+			data-sap-ui-theme="sap_belize"
+			data-sap-ui-compatVersion="edge"
+			data-sap-ui-preload="async"
+			data-sap-ui-resourceroots='{"com.cx.clientes.vincular":"","localresources":"../../resources"}'
+			data-sap-ui-appCacheBuster="./"
+			>
+		</script>
+<!--data-sap-ui-resourceroots='{"com.cx.clientes.vincular":"","openui5.validator":"./node_modules/openui5-validator/dist/resources/openui5/validator/","app.libs":"./libs","localresources":"../../resources"}'-->
+		<link rel="stylesheet" type="text/css" href="styles/style.css">
+
+		<script>
+			sap.ui.getCore().attachInit(function() {
+				new sap.m.Shell({
+					app: new sap.ui.core.ComponentContainer({
+						height : "100%",
+						width : "100%",
+						name : "com.cx.clientes.vincular"
+					})
+				}).placeAt("content");
+			});
+		</script>
+	</head>
+
+	<body class="sapUiBody" id="content">
+	</body>
+
+</html>

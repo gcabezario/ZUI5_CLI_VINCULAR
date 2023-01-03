@@ -1,0 +1,105 @@
+{
+	"_version": "1.2.0",
+	"sap.app": {
+		"_version": "1.2.0",
+		"id": "com.cx.clientes.vincular",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"crossNavigation": {
+			"inbounds": {}
+		}
+	},
+	"sap.ui": {
+		"_version": "1.2.0",
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		},
+		"supportedThemes": [
+			"sap_belize"
+		]
+	},
+	"sap.ui5": {
+		"_version": "1.2.0",
+		"dependencies": {
+			"minUI5Version": "1.28.0",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {},
+				"sap.ushell": {},
+				"sap.collaboration": {},
+				"sap.ui.comp": {},
+				"sap.uxap": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "com.cx.clientes.vincular.i18n.i18n"
+				}
+			}
+		},
+		"resources": {
+			"css": [
+				{
+					"uri": "styles/style.css"
+				}
+			]
+		},
+		"rootView": "com.cx.clientes.vincular.view.App",
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"viewPath": "com.cx.clientes.vincular.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "slide",
+				"clearTarget": true,
+				"bypassed": {
+					"target": "notFound"
+				}
+			},
+			"routes": [
+				{
+					"name": "root",
+					"pattern": "",
+					"target": [
+						"main"
+					]
+				}
+			],
+			"targets": {
+				"main": {
+					"viewType": "XML",
+					"transition": "slide",
+					"viewName": "Main",
+					"viewLevel": 1
+				},
+				"notFound": {
+					"viewType": "XML",
+					"transition": "slide",
+					"viewName": "NotFound",
+					"viewLevel": 3
+				}
+			}
+		}
+	},
+	"sap.platform.abap": {
+		"uri": "/sap/bc/ui5_ui5/sap/zui5_cli_vincu/webapp",
+		"_version": "1.1.0"
+	}
+}

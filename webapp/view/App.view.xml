@@ -1,0 +1,9 @@
+<mvc:View
+    controllerName="com.cx.clientes.vincular.controller.App"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"><App
+      id="app"
+      backgroundColor=""
+      backgroundImage=""
+      backgroundRepeat="false"
+      backgroundOpacity="1" /></mvc:View>

@@ -1,0 +1,10 @@
+<mvc:View
+  controllerName="com.cx.clientes.vincular.controller.NotFound"
+  xmlns:html="http://www.w3.org/1999/xhtml"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"><MessagePage
+		title="{i18n>NotFound}"
+		text="{i18n>NotFound.text}"
+		description="{i18n>NotFound.description}"
+		showNavButton="true"
+		navButtonPress="onNavBack"/></mvc:View>

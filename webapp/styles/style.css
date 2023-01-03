@@ -1,0 +1,271 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:300,400,700);
+
+.openSansFont,
+.sapMLnk,
+.sapMOHR .sapMOHRAttr .sapMObjectAttributeText,
+.sapMOHR .sapMOHRAttr .sapMObjectAttributeTitle,
+.sapMText,
+.sapMTitle,
+.sapUiBody,
+.sapUiUfdCurrencyCurrency,
+.sapUiUfdCurrencyValue,
+div,
+h1,
+h2,
+h3,
+h4,
+h5,
+label,
+span :not(.sapUiIcon) {
+    font-family: 'Open Sans', sans-serif !important
+}
+
+.sapMPageHeader .sapMBar {
+    background-color: #427cac
+}
+
+.sapMPageHeader .sapMBar .sapMBarMiddle {
+    text-align: left;
+    margin-left: 35px
+}
+
+.sapMPageHeader .sapMBar span {
+    color: #fff;
+    text-shadow: none
+}
+
+.sapMWizardHeader nav {
+    box-shadow: none
+}
+
+.blueText {
+    color: #0ca8e3
+}
+
+.redText {
+    color: #cc1919
+}
+
+.mediumText {
+    font-size: 18px
+}
+
+.bigText {
+    font-size: 30px
+}
+
+.verticallyAlignedBig {
+    line-height: 40px
+}
+
+.verticallyAlignedMedium {
+    line-height: 30px
+}
+
+.thinText {
+    font-weight: 200
+}
+
+.normalText {
+    font-weight: 400
+}
+
+.boldText {
+    font-weight: 700
+}
+
+.margin-right-10 {
+    margin-right: 10px
+}
+
+.mainTitle {
+    font-family: 'Open Sans', sans-serif;
+    color: #0ca8e3;
+    font-size: 24px
+}
+
+.mainTitle.medium {
+    font-size: 18px
+}
+
+.formTitle,
+.webPrescriptorSectionTitle {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px !important;
+    font-weight: 300
+}
+
+.webPrescriptorSectionTitle.medium {
+    font-size: 18px
+}
+
+.wizardForm .sapUiFormTitle {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px;
+    font-weight: 300
+}
+
+.wizardOfferResult .sapUiFormTitle {
+    color: #0ca8e3;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 17px
+}
+
+.wizardOfferResult .sapMLabel {
+    font-size: 1rem
+}
+
+.wizardOfferResult .sapMText {
+    font-size: 16px
+}
+
+.brandButton .sapMBtnInner.sapMBtnEmphasized {
+    background-color: #01719c !important;
+    /*padding: 7px 20px;*/
+    border-radius: 0;
+    height: 40px;
+    font-family: 'Open Sans', sans-serif
+}
+
+.brandIconButton .sapMBtnInner.sapMBtnEmphasized {
+    background-color: #01719c !important;
+    border-radius: 0;
+    font-family: 'Open Sans', sans-serif
+}
+
+.brandIconButton .sapMBtnInner.sapMBtnDefault {
+    border-radius: 0
+}
+
+.prevButton .sapMBtnInner.sapMBtnEmphasized {
+    background-color: #797979 !important;
+    border-color: #797979 !important;
+    padding: 7px 20px;
+    border-radius: 0;
+    height: 40px;
+    font-family: 'Open Sans', sans-serif
+}
+
+.successButton .sapMBtnInner.sapMBtnEmphasized {
+    background-color: #093 !important;
+    border-color: #093 !important;
+    padding: 7px 20px;
+    border-radius: 0;
+    height: 40px;
+    font-family: 'Open Sans', sans-serif
+}
+
+.errorButton .sapMBtnInner.sapMBtnEmphasized {
+    background-color: #cc1919 !important;
+    border-color: #cc1919 !important;
+    padding: 7px 20px;
+    border-radius: 0;
+    height: 40px;
+    font-family: 'Open Sans', sans-serif
+}
+
+.myStateErrorCaptcha iframe { border-color: red !important;
+				   border: 2px solid ;}
+
+/*.littlePaddingButton .sapMBtnInner.sapMBtnEmphasized {
+    padding: 1px 20px !important;
+    height: 28px !important
+}*/
+
+.sapMSegB:not('.sapMBarChild') .sapMSegBBtn,
+.sapMSegB:not('.sapMBarChild') .sapMSegBBtn:hover {
+    background: #fff;
+    color: #427cac;
+    border-color: #bfbfbf
+}
+
+.sapMSegB:not('.sapMBarChild') .sapMSegBBtn:first-child,
+.sapMSegB:not('.sapMBarChild') .sapMSegBBtn:last-child {
+    border-right: 1px solid #bfbfbf;
+    border-left: 1px solid #bfbfbf
+}
+
+.sapMSegB:not('.sapMBarChild') .sapMSegBBtn .sapMBtnCustomIcon {
+    color: #427cac;
+    margin-right: 20px
+}
+
+.sapMSegB:not('.sapMBarChild') .sapMSegBBtn.sapMSegBBtnSel {
+    background: #427cac;
+    color: #fff
+}
+
+.sapMSegB:not('.sapMBarChild') .sapMSegBBtn.sapMSegBBtnSel .sapMBtnCustomIcon {
+    color: #fff
+}
+
+html.sap-desktop .sapMSegBBtn.sapMSegBBtnFocusable:hover {
+    background: #fff;
+    color: #427cac
+}
+
+html.sap-desktop .sapMSegBBtn.sapMSegBBtnFocusable:focus {
+    outline: 0
+}
+
+html.sap-desktop .sapMSegBBtn.sapMSegBBtnFocusable.sapMSegBBtnSel:hover {
+    background: #427cac;
+    color: #fff
+}
+
+html.sap-desktop .sapMSegBBtn.sapMSegBBtnFocusable.sapMSegBBtnSel:focus {
+    outline: 0
+}
+
+.sapMBarChild .sapMBtnInner,
+.sapMDialog .sapMBtnInner,
+.sapUiCompFilterBar .sapMBtnInner {
+    border-radius: 0
+}
+
+body {
+    overflow: hidden
+}
+
+.currency-symbol {
+    font-size: 1em;
+    margin-left: 5px
+}
+
+.icon-size {
+    font-size: 32px
+}
+
+.myBusyDialog .sapMLabel.sapMBusyDialogLabel {
+    white-space: pre-line
+}
+
+.mainTitleMessageBox {
+    font-family: 'Open Sans', sans-serif;
+    color: #0ca8e3;
+    font-size: 24px;
+    margin-top: 5px;
+    margin-bottom: 5px
+}
+
+.formTitleMessageBox {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 20px !important;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 5px
+}
+
+.financialRequestCodeMessageBox {
+    margin-top: 15px;
+    text-align: center
+}
+
+.financialRequestCodeSuccessMessageBox {
+    font-size: 35px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+    border: 1px solid #3fa45b
+}
