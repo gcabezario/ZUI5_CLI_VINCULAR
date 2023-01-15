@@ -6,9 +6,12 @@ sap.ui.define([
 	'sap/ui/model/json/JSONModel'
 ], (Object, Ajax, JSONModel) => {
 	return Object.extend('com.cx.clientes.vincular.controller.class.Service', {
+		 
 		constructor: function (data) {
 			if (data) {
 				this.i18n = data.i18n;
+				 this.oDataModel = data.controller.getOwnerComponent().getModel();
+        		 this.oDataModel.setRefreshAfterChange(false);
 			}
 			this.ajax = new Ajax();
 		},
@@ -67,7 +70,59 @@ sap.ui.define([
 				throw oError;
 			}
 		},
-		
+		  /**
+     * GPI2022-675 Comisión de gestión Portugal
+     * Get static info of opening commission 
+     * @public
+     * @return {object} Response results
+     */
+    getUserData() {
+     return this.callFunction('/getUserData', {});
+    },
+    
+    /**
+     * GPI2019-2824	Comisión de Apertura Portugal
+     * oData read function import
+     * @public
+     * @param {string} [sRemoteFunction] Name of function import
+     * @param {object} [oData] Data to send in json format
+     * @param {string} [sMethod] CRUD method
+     * @return {object} Response results
+     */
+    callFunction(sRemoteFunction, oData, sMethod) {
+      let that = this;
+      var promise = new Promise(function (resolve, reject) {
+        sMethod = sMethod || 'GET';
+        
+        that.oDataModel.callFunction(
+          sRemoteFunction, {
+            method: sMethod,
+            urlParameters: {
+              Input: JSON.stringify(oData)
+            },
+            success: function(oResponse) {
+              if (oResponse !== undefined) {
+                /*that.checkErrors(oResponse);
+                that.parseRetornosMessages(oResponse);*/
+                resolve(oResponse);
+              } else {
+                let oError = new Error();
+                oError.aMessages = that.getDefaultErrorMessages();
+                reject(oError);
+              }
+            },
+            error: function(error) {
+              console.error('READ Error', error);
+              let oError = new Error();
+              oError.aMessages = that.getDefaultErrorMessages();
+              reject(oError);
+            }
+          }
+        );
+      });
+      return promise;
+    },
+    
 		send: function send(oParams) {
 			if (!oParams.sType) {
 				oParams.sType = 'GET';

@@ -12,6 +12,17 @@
 		"description": "{{appDescription}}",
 		"crossNavigation": {
 			"inbounds": {}
+		},
+		"dataSources": {
+			"mainService": {
+				"uri": "/sap/opu/odata/sap/ZGW_CONTRATOS_SRV/",
+				"type": "OData",
+				"settings": {
+					"odataVersion": "2.0",
+					"localUri": "localService/metadata.xml",
+					"annotations": []
+				}
+			}
 		}
 	},
 	"sap.ui": {
@@ -49,6 +60,12 @@
 				"type": "sap.ui.model.resource.ResourceModel",
 				"settings": {
 					"bundleName": "com.cx.clientes.vincular.i18n.i18n"
+				}
+			},
+			"": {
+				"dataSource": "mainService",
+				"settings": {
+					"defaultBindingMode": "TwoWay"
 				}
 			}
 		},

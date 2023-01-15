@@ -20,7 +20,8 @@ sap.ui.define(
 				this.i18n = this.getOwnerComponent().getModel('i18n').getResourceBundle();
 
 				this.service = new ServiceClass({
-					i18n: this.i18n
+					i18n: this.i18n,
+					controller: this
 				});
 				this.oRootScopeModel = this.getOwnerComponent().getModel('rootScope');
 				this.oRootScope = this.oRootScopeModel.getData();
@@ -116,7 +117,9 @@ sap.ui.define(
 
 				//this.initDataTest();
 				this.initData();
-				this.userModel = new JSONModel(this.data);
+				let oUserData = await this.service.getUserData();
+				
+				this.userModel = new JSONModel(oUserData);
 				this.getView().setModel(this.userModel, 'user');
 
 				let oResults = await this.service.getCombos();
