@@ -1,0 +1,46 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified" xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	<Dialog id="dataToSendId" title="{i18n>Main.formTitleClient}" type="Message" contentWidth="35rem">
+		<content>
+			<VBox alignItems="Start">
+				<Panel expandable="false" expanded="true">
+					<content>
+						<form:Form editable="true">
+							<form:layout>
+								<form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3"
+									emptySpanL="3" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
+							</form:layout>
+							<form:formContainers>
+								<form:FormContainer >
+									<form:formElements>
+										<form:FormElement label="{i18n>Form.customerDocument}">
+											<form:fields>
+												<Select id="clientDocumentTypeId" forceSelection="true" selectedKey="{user>/Tipodocu}" autoAdjustWidth="true" custom:view="validationForm"
+													items="{ path: 'scope>/documentos', sorter: { path: 'key' } }">
+													<core:Item key="{scope>key}" text="{scope>value}"/>
+													<layoutData><l:GridData span="XL2 L2 M3 S3"/></layoutData>
+													</Select>
+												<Input id="clientDocumentId" placeholder="{i18n>Form.numCustomerDocument}"
+													value="{ path: 'user>/Stcd1', type: 'sap.ui.model.type.String', constraints : { minLength : 3 } }">
+													<layoutData><l:GridData span="XL5 L5 M6 S9"/></layoutData>
+												</Input>
+											</form:fields>
+										</form:FormElement>
+										<form:FormElement label="{i18n>Form.name}">
+											<form:fields>
+												<Input id="clientNameId" custom:view="validationForm"
+													value="{ path: 'user>/CustomerName', type: 'sap.ui.model.type.String', constraints : { minLength : 3 } }"/>
+											</form:fields>
+										</form:FormElement>
+									</form:formElements>
+								</form:FormContainer>
+							</form:formContainers>
+						</form:Form>
+					</content>
+				</Panel>
+			</VBox>
+		</content>
+		<beginButton><Button text="{i18n>Button.cancel}" press="onClienDataExit"/></beginButton>
+		<endButton><Button text="Vincular Nuevo cliente" press="onPressNewClient"/></endButton>
+	</Dialog>
+</core:FragmentDefinition>

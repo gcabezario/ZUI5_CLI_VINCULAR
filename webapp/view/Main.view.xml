@@ -1,17 +1,18 @@
-<mvc:View controllerName="com.cx.clientes.vincular.controller.Main" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
+<mvc:View id="vincularClienteViewId"  controllerName="com.cx.clientes.vincular.controller.Main" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:mvc="sap.ui.core.mvc"
 	xmlns="sap.m" xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:form="sap.ui.layout.form"
-	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
-	<Page showHeader="true" title="{i18n>appTitle}" showNavButton="true" navButtonPress="onNavBack" class="">
+	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" 
+	xmlns:smartTable="sap.ui.comp.smarttable">
+	<Page  id="vincularClienteId" showHeader="true" title="{i18n>appTitle}" showNavButton="true" navButtonPress="onNavBack" >
 		<content>
 			<VBox >
 				<Text text="{i18n>Main.title} " class="sapUiLargeMargin mainTitle"/>
-				<Text text="{i18n>Main.formTitle}" class="sapUiLargeMarginBegin formTitle"/>
-				<Panel width="auto" class="bgWhite sapUiLargeMargin"  expandable="false" expanded="true" >
+				<!--<Text text="{i18n>Main.formTitle}" class="sapUiLargeMarginBegin formTitle"/>-->
+			<!--	<Panel width="auto" class="bgWhite sapUiLargeMargin" expandable="false" expanded="true">
 					<layoutData>
 						<l:GridData span="XL12 L12 M12 S12"/>
 					</layoutData>
 					<content>
-						<form:Form editable="true" >
+						<form:Form editable="true">
 							<form:layout>
 								<form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3"
 									emptySpanL="3" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
@@ -21,40 +22,94 @@
 									<form:formElements>
 										<form:FormElement>
 											<form:fields>
-												<Image xmlns="sap.m"
-													id="id"
-													busy="false"
-													busyIndicatorDelay="1000"
-													visible="true"
-													src="{ImageModel>/ImagePath}"
-													width=""
-													height=""
-													decorative="true"
-													alt=""
-													useMap=""
-													densityAware="true"
-													activeSrc=""
-													tap="En contruccion"
-													>
-														<tooltip></tooltip> <!-- sap.ui.core.TooltipBase -->
-														<dependents></dependents> <!-- sap.ui.core.Control, since 1.19 -->
+												<Image xmlns="sap.m" id="id" busy="false" busyIndicatorDelay="1000" visible="true" src="{ImageModel>/ImagePath}" width="" height=""
+													decorative="true" alt="" useMap="" densityAware="true" activeSrc="" tap="En contruccion">
+													<dependents></dependents>
 												</Image>
-											
 											</form:fields>
 										</form:FormElement>
-									
 									</form:formElements>
 								</form:FormContainer>
 							</form:formContainers>
 						</form:Form>
 					</content>
-				</Panel>
-				<!--<Panel width="auto" class="bgWhite sapUiLargeMargin" headerText="{i18n>Main.formTitleClient}" expandable="true" expanded="true" >
+				</Panel>-->
+				<Panel width="auto" class="bgWhite sapUiLargeMargin" headerText="{i18n>Main.formTitleUser}" expandable="true" expanded="true">
 					<layoutData>
 						<l:GridData span="XL12 L12 M12 S12"/>
 					</layoutData>
 					<content>
-						<form:Form editable="true" >
+						<form:SimpleForm editable="false" layout="ResponsiveGridLayout" labelSpanXL="3" labelSpanL="3" labelSpanM="3" labelSpanS="12"
+							adjustLabelSpan="false" emptySpanXL="4" emptySpanL="4" emptySpanM="4" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1"
+							singleContainerFullSize="false">
+							<form:content>
+								<Label text="{i18n>Form.userDocument}"/>
+								<Text text="{user>/Stcd1User}"/>
+								<Label text="{i18n>Form.name}"/>
+								<Text text="{user>/NombreRazon}"/>
+								<Label text="{i18n>Form.email}"/>
+								<Text text="{user>/Mail}"/>
+								<Label text="{i18n>Form.mobile}"/>
+								<Text text="{user>/Telf1}"/>
+							</form:content>
+						</form:SimpleForm>
+					</content>
+				</Panel>
+					
+				<smartTable:SmartTable entitySet="UsuariosVinculadosSet" 
+							smartFilterId="smartFilterBar" tableType="Table"
+							beforeRebindTable="onBeforeRebindTable"
+							useExportToExcel="false" beforeExport="onBeforeExport" useVariantManagement="false" useTablePersonalisation="false"
+							header="Clientes vinculados" showRowCount="true" persistencyKey="SmartTableAnalytical_Explored" enableAutoBinding="true"
+							demandPopin="true" class="sapUiResponsiveContentPadding" requestAtLeastFields="Stcd1,Solicitud,Validto,Validfrom">
+							<smartTable:customToolbar>
+								<OverflowToolbar design="Transparent">
+									<ToolbarSpacer/>
+									<Button icon="sap-icon://add" type="Emphasized" text="Vincular Nuevo cliente" press="onOpenDialogClientData" />
+								</OverflowToolbar>
+							</smartTable:customToolbar>
+							<Table>
+								<columns>
+									<Column >
+										
+										<Text text="Documento cliente"/>
+									</Column>
+									<Column >
+										<Text text="Numero Solicitud"/>
+									</Column>
+									<Column >
+										<Text text="Valido desde"/>
+									</Column>
+									<Column >
+										<Text text="Valido hasta"/>
+									</Column>
+								</columns>
+								<items>
+									<ColumnListItem >
+										<cells>
+											<Text text="{Stcd1}"/>
+										</cells>
+										<cells>
+											<Text text="{Solicitud}"/>
+										</cells>
+										<cells>
+											<Text text="{ path: 'Validfrom', type: 'sap.ui.model.odata.type.Date', formatOptions: { style: 'medium' } }"/>
+										</cells>
+										<cells>
+											<Text text="{ path: 'Validto', type: 'sap.ui.model.odata.type.Date', formatOptions: { style: 'medium' } }"/>
+										</cells>
+										
+									</ColumnListItem>
+								</items>
+							</Table>
+						</smartTable:SmartTable>
+				
+				<!--<Panel width="auto" class="bgWhite sapUiLargeMargin" headerText="{i18n>Main.formTitleClient}" expandable="true" expanded="true">
+					<layoutData>
+						<l:GridData span="XL12 L12 M12 S12"/>
+					</layoutData>
+					<content>
+						<form:Form editable="true">
 							<form:layout>
 								<form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3"
 									emptySpanL="3" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
@@ -64,66 +119,33 @@
 									<form:formElements>
 										<form:FormElement label="{i18n>Form.customerDocument}">
 											<form:fields>
-												<Select id="clientDocumentTypeId" forceSelection="true" selectedKey="{user>/cliente/tipo}" autoAdjustWidth="true"
+												<Select id="clientDocumentTypeId" forceSelection="true" selectedKey="{user>/Tipodocu}" autoAdjustWidth="true"
 													custom:view="validationForm" items="{ path: 'scope>/documentos', sorter: { path: 'key' } }">
 													<core:Item key="{scope>key}" text="{scope>value}"/></Select>
 												<Input id="clientDocumentId" placeholder="{i18n>Form.numCustomerDocument}"
-													value="{ path: 'user>/cliente/numero', type: 'sap.ui.model.type.String', constraints : { minLength : 3 } }">
+													value="{ path: 'user>/Stcd1', type: 'sap.ui.model.type.String', constraints : { minLength : 3 } }">
 													<layoutData><l:GridData span="XL5 L5 M6 S12"/></layoutData>
 												</Input>
 											</form:fields>
 										</form:FormElement>
 										<form:FormElement label="{i18n>Form.name}">
 											<form:fields>
-												
 												<Input id="clientNameId" custom:view="validationForm"
-													value="{ path: 'user>/cliente/nombre', type: 'sap.ui.model.type.String', constraints : { minLength : 3 } }"/>
-											</form:fields>
-										</form:FormElement>
-									</form:formElements>
-								</form:FormContainer>
-							</form:formContainers>
-						</form:Form>
-					</content>
-				</Panel>-->
-			<!--	<Panel width="auto" class="bgWhite sapUiLargeMargin" headerText="{i18n>Main.formTitleUser}" expandable="true" expanded="true">
-					<layoutData>
-						<l:GridData span="XL12 L12 M12 S12"/>
-					</layoutData>
-					<content>
-						<form:Form editable="true" >
-							<form:layout>
-								<form:ResponsiveGridLayout labelSpanXL="3" labelSpanL="3" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="3"
-									emptySpanL="3" emptySpanM="0" emptySpanS="0" columnsXL="1" columnsL="1" columnsM="1" singleContainerFullSize="false"/>
-							</form:layout>
-							<form:formContainers>
-								<form:FormContainer title="">
-									<form:formElements>
-										<form:FormElement label="{i18n>Form.userDocument}">
-											<form:fields>
-												<Select id="customerDocumentTypeId" forceSelection="true" selectedKey="{user>/usuario/tipo}" autoAdjustWidth="true"
-													items="{ path: 'scope>/documentos', sorter: { path: 'key' }, filters : [ { path : 'key', operator : 'NE', value1 : 'CIF'} ] }">
-													<core:Item key="{scope>key}" text="{scope>value}"/>
-												</Select>
-												<Input id="customerDocumentId" placeholder="{i18n>Form.numCustomerDocument}" custom:view="validationForm"
-													value="{ path: 'user>/usuario/numero', type: 'sap.ui.model.type.String', constraints : { minLength : 3 } }">
-													<layoutData><l:GridData span="XL5 L5 M6 S12"/></layoutData>
-												</Input>
+													value="{ path: 'user>/CustomerName', type: 'sap.ui.model.type.String', constraints : { minLength : 3 } }"/>
 											</form:fields>
 										</form:FormElement>
 										<form:FormElement label="{i18n>Form.name}">
-											<form:fields><Input id="customerNameId" custom:view="validationForm"
-												value="{ path: 'user>/usuario/nombre', type: 'sap.ui.model.type.String', constraints : { minLength : 3 } }"/></form:fields>
-										</form:FormElement>
-										<form:FormElement label="{i18n>Form.email}">
 											<form:fields>
-												<Input id="customerEmailId" validationError="handleValidationErrorCustomerEmail" custom:view="validationForm"
-													value="{ path: 'user>/usuario/email', type: 'sap.ui.model.type.String'}"/>
-											</form:fields>
-										</form:FormElement>
-										<form:FormElement label="{i18n>Form.mobile}">
-											<form:fields>
-												<Input id="customerMobileId" custom:view="validationForm" value="{ path: 'user>/usuario/telefono', type: 'sap.ui.model.type.String'}"/>
+												<Button xmlns="sap.m"
+													id="id"
+													busy="false"
+													busyIndicatorDelay="1000"
+													visible="true"
+													text="nuevo cliente"
+													type="Default"
+													press="onOpenDialogClientData">
+												</Button>
+												
 											</form:fields>
 										</form:FormElement>
 									</form:formElements>
@@ -136,9 +158,9 @@
 		</content>
 		<footer>
 			<OverflowToolbar>
-			<!--	<Button id="messagepopup" class="brandIconButton" icon="sap-icon://message-popup" text="{buttonMessages>/length}"
+					<Button id="messagepopup" class="brandIconButton" icon="sap-icon://message-popup" text="{buttonMessages>/length}"
 					type="{buttonMessages>/type}" press="handleMessagePopoverPress"/><ToolbarSpacer/>
-				<Button class="brandButton littlePaddingButton" text="{i18n>Button.cancel}" type="Default" press="clearModel"/>
+				<!--<Button class="brandButton littlePaddingButton" text="{i18n>Button.cancel}" type="Default" press="clearModel"/>
 				<Button class="brandButton littlePaddingButton" text="{i18n>Button.accept}" type="Emphasized" press="onPressAccept"/>-->
 			</OverflowToolbar>
 		</footer>

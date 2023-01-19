@@ -42,7 +42,67 @@ sap.ui.define([
 			this.checkErrors(oResults);
 			return oResults;
 		},
-		
+		 /**
+    * Post request
+    * @public
+    * @param {object} [oParams] Parameters to send
+    * @return {object} Response results
+    */
+    post(oParams) {
+      let that = this;
+      oParams.url += '?format=json';
+        	//sobreescribimos el metodo para que no muestre la excepcion 
+          	//ya que la vamos a tratar nosotros
+          	that.oDataModel.fireRequestFailed =  function(mArguments) {
+				return this;
+			};
+      var promise = new Promise(function (resolve, reject) {
+        that.oDataModel.create(oParams.url, oParams.data, {
+          success: function(oResponse) {
+            // console.log('SERVICE POST', oResponse);
+            if (oResponse !== undefined) {
+              try {
+              /*  that.checkErrors(oResponse);
+                that.parseRetornosMessages(oResponse);*/
+                resolve(oResponse);
+              } catch (oError) {
+                reject(oError);
+              }
+            } else {
+              let oError = new Error();
+              oError.aMessages = that.getDefaultErrorMessages();
+              reject(oError);
+            }
+          },
+          error: function(error) {
+          	
+            //console.error('POST Error', error);
+            //let oErrorr = new Error();
+            //oErrorr.aMessages = that.getDefaultErrorMessages();
+            let oErrorr = that.parseOdataException(error);
+            reject(oErrorr);
+          }
+        });
+      });
+      return promise;
+    },
+    	/**
+		 * Get error messages of the exception into array
+		 * @return {array} Array of parsed messages
+		 */
+		parseOdataException: function (error) {
+			if (error && error.responseText) {
+				var parsedError = JSON.parse(error.responseText);
+				return [{
+					type: 'Error',
+					counter: 0,
+					//title: parsedError.error.message.value
+					title: parsedError.error.innererror.errordetails[0].message
+				}];
+			}
+			return that.getDefaultErrorMessages();
+
+		},
 		async sendDataAfilicion(oData) {
 			let oResults;
 			try {
@@ -97,9 +157,9 @@ sap.ui.define([
         that.oDataModel.callFunction(
           sRemoteFunction, {
             method: sMethod,
-            urlParameters: {
+           /* urlParameters: {
               Input: JSON.stringify(oData)
-            },
+            },*/
             success: function(oResponse) {
               if (oResponse !== undefined) {
                 /*that.checkErrors(oResponse);

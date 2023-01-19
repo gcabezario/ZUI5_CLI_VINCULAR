@@ -25,12 +25,12 @@ sap.ui.define(
 				});
 				this.oRootScopeModel = this.getOwnerComponent().getModel('rootScope');
 				this.oRootScope = this.oRootScopeModel.getData();
-				
+
 				var sRootPath = jQuery.sap.getModulePath("com.cx.clientes.vincular");
 				var sImagePath = sRootPath + "/img/under-construction1.png";
-				var oDataImage={
-					ImagePath :sImagePath
-				} ;
+				var oDataImage = {
+					ImagePath: sImagePath
+				};
 				this.oDataImageModel = new sap.ui.model.json.JSONModel(oDataImage);
 				this.oView.setModel(this.oDataImageModel, 'ImageModel');
 
@@ -53,20 +53,18 @@ sap.ui.define(
 			 * Called when registeres route was matched.
 			 */
 			onRouteMatched() {
-    
+
 				this.initModel();
 			},
-			onloadCallback(){
-				
+			onloadCallback() {
+
 			},
-			onAfterRendering(){
-				
+			onAfterRendering() {
+
 				/*jQuery.sap.includeScript(
 			        "https://www.google.com/recaptcha/api.js" 
 			    );*/
 			},
-						
-		
 
 			initData() {
 				this.data = {
@@ -118,19 +116,40 @@ sap.ui.define(
 				//this.initDataTest();
 				this.initData();
 				let oUserData = await this.service.getUserData();
-				
+				this.GuidUser = oUserData.Guid;
+				oUserData.GuidUser = oUserData.Guid;
+				oUserData.Guid = "";
+				oUserData.Stcd1User = oUserData.Stcd1;
+				oUserData.Stcd1 = "";
+				oUserData.CustomerName = "";
+				oUserData.Tipodocu = "";
+
 				this.userModel = new JSONModel(oUserData);
 				this.getView().setModel(this.userModel, 'user');
 
 				let oResults = await this.service.getCombos();
 				this.oScopeModel = new JSONModel(oResults);
-				
-			
+
 				this.getView().setModel(this.oScopeModel, 'scope');
 
 				BusyIndicator.hide();
 			},
 
+			async onBeforeRebindTable(oSource){
+				var tabla = oSource.getSource();
+			    var binding = oSource.getParameter("bindingParams");
+				
+				
+				if(!this.GuidUser){
+					let oUserData = await this.service.getUserData();
+					this.GuidUser = oUserData.Guid;
+					tabla.rebindTable()
+				} else{
+					var oFilter = new sap.ui.model.Filter("GuidUser", sap.ui.model.FilterOperator.EQ, this.GuidUser);
+			    	binding.filters.push(oFilter);		
+				}
+			}, 
+			
 			copyDataFromUser() {
 
 				this.data.cliente.tipo = this.data.usuario.tipo;
@@ -162,28 +181,28 @@ sap.ui.define(
 			 * Event fired when clic
 			 * @param {sap.ui.base.Event} [oEvent] An Event object consisting of an id, a source and a map of parameters.
 			 */
-			
-			validateCaptcha(){
-			
-				if( grecaptcha.getResponse().length == 0){
+
+			validateCaptcha() {
+
+				if (grecaptcha.getResponse().length == 0) {
 					MessageToast.show(this.i18n.getText('Message.confirmNotRobot'));
-			          
-			       this.oView.byId('recaptchaGoogle').addStyleClass("myStateErrorCaptcha");
-			           
+
+					this.oView.byId('recaptchaGoogle').addStyleClass("myStateErrorCaptcha");
+
 					return false;
 				}
-				
+
 				this.oView.byId('recaptchaGoogle').removeStyleClass("myStateErrorCaptcha");
-				 return true;
+				return true;
 			},
-			 
+
 			onPressAccept(oEvent) {
 				let oSchemaParams = {
 					step: 'validationForm',
 					aOptions: []
 				};
 				let validator = new Validator(this.oView, Schemas.getStep(oSchemaParams), null, 'es');
-				if (validator.validate()) {// && this.validateCaptcha()) {
+				if (validator.validate()) { // && this.validateCaptcha()) {
 
 					MessageBox.confirm(
 						this.i18n.getText('Message.confirmSend'), {
@@ -210,10 +229,11 @@ sap.ui.define(
 
 				} catch (error) {
 					this.messagePopover.update(error.aMessages);
+
 				}
 				BusyIndicator.hide();
 			},
-		
+
 			/**
 			 * Post request finished with success status
 			 * @param {object} [oResults] Response object
@@ -260,10 +280,111 @@ sap.ui.define(
 			 */
 			getDataToSend() {
 				var data = this.getView().getModel('user').getData();
+				var oData = {
+					Mail: data.Mail,
+					GuidUser: data.GuidUser,
+					Stcd1User: data.Stcd1User,
+					Tipodocu: data.Tipodocu,
+					Stcd1: data.Stcd1,
+					CustomerName: data.CustomerName,
+					Telf1: data.Telf1
+				}
+				switch (data.Tipodocu) {
+				case "CIF":
+					oData.Tipodocu = "L";
+					break;
+				case "NIF":
+					oData.Tipodocu = "D";
+					break;
+				case "NIE":
+					oData.Tipodocu = "R";
+					break;
+				default:
+				}
 
-				return data;
+				return oData;
 			},
-		
+
+			onClienDataExit() {
+				var oDialog = this.oView.byId('dataToSendId');
+				if (oDialog) oDialog.destroy();
+			},
+
+			onOpenDialogClientData() {
+				var oDialog = sap.ui.xmlfragment(
+					this.oView.getId(),
+					'com.cx.clientes.vincular.view.fragments.ClienData',
+					this);
+				//	oDialog.addStyleClass(this.getOwnerComponent().getContentDensityClass());
+				this.oView.addDependent(oDialog);
+
+				oDialog.open();
+			},
+
+			/**
+			 * Event fired when press Financial validation request button 
+			 */
+			async onPressNewClient() {
+				this.onClienDataExit();
+
+				let oBusyDialog = this.getBusyDialog(true, undefined, this.i18n.getText('Confirm.VincularClienteWaiting'));
+				oBusyDialog.open();
+				try {
+					//this.messagePopover.update([]);
+					let oData = this.getDataToSend();
+					let oParams = {
+						url: '/UsuariosVinculadosSet',
+						data: oData
+					};
+
+					let oResults = await this.service.post(oParams);
+
+					// console.log('onPressFinancialValidationRequest:', oResults);
+					/*	this.offer.setData(oResults);
+						this.offer.refresh();*/
+					oBusyDialog.close();
+					oBusyDialog.destroy();
+					this.postRequestSuccessHandler(oResults);
+
+				} catch (error) {
+					//this.messagePopover.update(error.aMessages);
+
+					oBusyDialog.close();
+					oBusyDialog.destroy();
+
+					this.messagePopover.update(error);
+				}
+			},
+			
+			postRequestSuccessHandler(oResults) {
+				
+				MessageBox.information(this.i18n.getText('Message.successSend', oResults.Solicitud), {
+					
+					styleClass: this.getOwnerComponent().getContentDensityClass()
+					
+				});
+				
+
+			},
+			
+			getBusyDialog(isNew, sTitle, sText, cbCloseButton) {
+				if (this.oBusyDialog === undefined || isNew) {
+					if (this.oBusyDialog !== undefined) {
+						this.oBusyDialog.destroy();
+					}
+					this.oBusyDialog = new sap.m.BusyDialog('busyDialogId', {
+						title: sTitle,
+						text: sText,
+						showCancelButton: cbCloseButton !== undefined,
+						close: function (oEvent) {
+							if (cbCloseButton !== undefined) {
+								cbCloseButton(oEvent);
+							}
+						}
+					});
+				}
+				return this.oBusyDialog;
+			},
 			/**
 			 * Event fired when check state of inputs
 			 * @public
