@@ -358,12 +358,13 @@ sap.ui.define(
 			
 			postRequestSuccessHandler(oResults) {
 				
+					
 				MessageBox.information(this.i18n.getText('Message.successSend', oResults.Solicitud), {
 					
 					styleClass: this.getOwnerComponent().getContentDensityClass()
 					
 				});
-				
+				this.oView.byId('tableUsuariosVinculados').rebindTable();
 
 			},
 			

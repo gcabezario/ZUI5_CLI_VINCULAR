@@ -56,11 +56,11 @@
 					</content>
 				</Panel>
 					
-				<smartTable:SmartTable entitySet="UsuariosVinculadosSet" 
+				<smartTable:SmartTable entitySet="UsuariosVinculadosSet" id="tableUsuariosVinculados"
 							smartFilterId="smartFilterBar" tableType="Table"
 							beforeRebindTable="onBeforeRebindTable"
 							useExportToExcel="false" beforeExport="onBeforeExport" useVariantManagement="false" useTablePersonalisation="false"
-							header="Clientes vinculados" showRowCount="true" persistencyKey="SmartTableAnalytical_Explored" enableAutoBinding="true"
+							header="{i18n>Main.list.clientes.Vinculados}" showRowCount="true" persistencyKey="SmartTableAnalytical_Explored" enableAutoBinding="true"
 							demandPopin="true" class="sapUiResponsiveContentPadding" requestAtLeastFields="Stcd1,Solicitud,Validto,Validfrom">
 							<smartTable:customToolbar>
 								<OverflowToolbar design="Transparent">
@@ -72,16 +72,16 @@
 								<columns>
 									<Column >
 										
-										<Text text="Documento cliente"/>
+										<Text text="{i18n>Main.documento.cliente}"/>
 									</Column>
 									<Column >
-										<Text text="Numero Solicitud"/>
+										<Text text="{i18n>Main.numero.solicitud}"/>
 									</Column>
 									<Column >
-										<Text text="Valido desde"/>
+										<Text text="{i18n>Main.valido.desde}"/>
 									</Column>
 									<Column >
-										<Text text="Valido hasta"/>
+										<Text text="{i18n>Main.valido.hasta}"/>
 									</Column>
 								</columns>
 								<items>
