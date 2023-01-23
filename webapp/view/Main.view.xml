@@ -61,7 +61,7 @@
 							beforeRebindTable="onBeforeRebindTable"
 							useExportToExcel="false" beforeExport="onBeforeExport" useVariantManagement="false" useTablePersonalisation="false"
 							header="{i18n>Main.list.clientes.Vinculados}" showRowCount="true" persistencyKey="SmartTableAnalytical_Explored" enableAutoBinding="true"
-							demandPopin="true" class="sapUiResponsiveContentPadding" requestAtLeastFields="Stcd1,Solicitud,Validto,Validfrom">
+							demandPopin="true" class="sapUiResponsiveContentPadding" requestAtLeastFields="Stcd1,Solicitud,CStep,Validto,Validfrom">
 							<smartTable:customToolbar>
 								<OverflowToolbar design="Transparent">
 									<ToolbarSpacer/>
@@ -78,6 +78,9 @@
 										<Text text="{i18n>Main.numero.solicitud}"/>
 									</Column>
 									<Column >
+										<Text text="{i18n>Main.Paso}"/>
+									</Column>
+									<Column >
 										<Text text="{i18n>Main.valido.desde}"/>
 									</Column>
 									<Column >
@@ -91,6 +94,9 @@
 										</cells>
 										<cells>
 											<Text text="{Solicitud}"/>
+										</cells>
+										<cells>
+											<Text text="{CStep}"/>
 										</cells>
 										<cells>
 											<Text text="{ path: 'Validfrom', type: 'sap.ui.model.odata.type.Date', formatOptions: { style: 'medium' } }"/>
