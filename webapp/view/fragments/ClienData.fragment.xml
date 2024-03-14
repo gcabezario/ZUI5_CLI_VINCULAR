@@ -26,12 +26,12 @@
 												</Input>
 											</form:fields>
 										</form:FormElement>
-										<form:FormElement label="{i18n>Form.name}">
+									<!--	<form:FormElement label="{i18n>Form.name}">
 											<form:fields>
 												<Input id="clientNameId" custom:view="validationForm"
 													value="{ path: 'user>/CustomerName', type: 'sap.ui.model.type.String', constraints : { minLength : 3 } }"/>
 											</form:fields>
-										</form:FormElement>
+										</form:FormElement>-->
 									</form:formElements>
 								</form:FormContainer>
 							</form:formContainers>
