@@ -60,7 +60,7 @@
 							smartFilterId="smartFilterBar" tableType="Table"
 							beforeRebindTable="onBeforeRebindTable"
 							useExportToExcel="false" beforeExport="onBeforeExport" useVariantManagement="false" useTablePersonalisation="false"
-							header="{i18n>Main.list.clientes.Vinculados}" showRowCount="true" persistencyKey="SmartTableAnalytical_Explored" enableAutoBinding="true"
+							header="{i18n>Main.list.clientes.Vinculados}" showRowCount="true"  enableAutoBinding="true"
 							demandPopin="true" class="sapUiResponsiveContentPadding" requestAtLeastFields="Stcd1,CustomerName,Solicitud,CStep,Validto,Validfrom">
 							<smartTable:customToolbar>
 								<OverflowToolbar design="Transparent">
@@ -71,16 +71,17 @@
 							<Table>
 								<columns>
 									<Column >
+										<Text text="{i18n>Main.numero.solicitud}"/>
+									</Column>
+									<Column >
 										<Text text="{i18n>Main.documento.cliente}"/>
 									</Column>
 									<Column >
 										<Text text="{i18n>Main.name.cliente}"/>
 									</Column>
+									
 									<Column >
-										<Text text="{i18n>Main.numero.solicitud}"/>
-									</Column>
-									<Column >
-										<Text text="{i18n>Main.Paso}"/>
+										<Text text="{i18n>Main.Estado}"/>
 									</Column>
 									<Column >
 										<Text text="{i18n>Main.valido.desde}"/>
@@ -92,13 +93,13 @@
 								<items>
 									<ColumnListItem >
 										<cells>
+											<Text text="{Solicitud}"/>
+										</cells>
+										<cells>
 											<Text text="{Stcd1}"/>
 										</cells>
 										<cells>
 											<Text text="{CustomerName}"/>
-										</cells>
-										<cells>
-											<Text text="{Solicitud}"/>
 										</cells>
 										<cells>
 											<Text text="{CStep}"/>

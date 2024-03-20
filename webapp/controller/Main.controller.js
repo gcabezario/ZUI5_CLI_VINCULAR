@@ -135,10 +135,11 @@ sap.ui.define(
 				BusyIndicator.hide();
 			},
 
+		   
+    
 			async onBeforeRebindTable(oSource){
 				var tabla = oSource.getSource();
 			    var binding = oSource.getParameter("bindingParams");
-				
 				
 				if(!this.GuidUser){
 					let oUserData = await this.service.getUserData();
@@ -148,6 +149,8 @@ sap.ui.define(
 					var oFilter = new sap.ui.model.Filter("GuidUser", sap.ui.model.FilterOperator.EQ, this.GuidUser);
 			    	binding.filters.push(oFilter);		
 				}
+				binding.sorter = [new sap.ui.model.Sorter('Solicitud', true)]
+			
 			}, 
 			
 			copyDataFromUser() {
