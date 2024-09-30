@@ -42,13 +42,33 @@
 		"dependencies": {
 			"minUI5Version": "1.28.0",
 			"libs": {
-				"sap.ui.core": {},
-				"sap.m": {},
-				"sap.ui.layout": {},
-				"sap.ushell": {},
-				"sap.collaboration": {},
-				"sap.ui.comp": {},
-				"sap.uxap": {}
+				"sap.collaboration": {
+					"lazy": false
+				},
+				"sap.m": {
+					"lazy": false
+				},
+				"sap.ui.comp": {
+					"lazy": false
+				},
+				"sap.ui.core": {
+					"lazy": false
+				},
+				"sap.ui.layout": {
+					"lazy": false
+				},
+				"sap.ui.table": {
+					"lazy": false
+				},
+				"sap.ui.unified": {
+					"lazy": false
+				},
+				"sap.ushell": {
+					"lazy": false
+				},
+				"sap.uxap": {
+					"lazy": false
+				}
 			}
 		},
 		"contentDensities": {
